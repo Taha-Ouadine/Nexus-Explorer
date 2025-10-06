@@ -33,7 +33,7 @@ export default function PredictionTab({
   const [loading, setLoading] = useState(false)
   const [selectedModelMetrics, setSelectedModelMetrics] = useState<any>(null)
 
-  const allModels = [...pklModels]
+  const allModels = [...pklModels, ...customModels]
 
   // ========== INITIALIZATION OF FEATURES WITH DEFAULT VALUES ==========
   useEffect(() => {

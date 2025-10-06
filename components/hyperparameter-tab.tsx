@@ -351,6 +351,9 @@ export default function HyperparameterTab({
       setCurrentMetrics(result.metrics)
       await onReload()
       alert(`✅ Model created! Accuracy: ${result.model.accuracy.toFixed(4)}`)
+      
+      // Force a page reload to update the prediction tab models
+      window.location.reload()
 
       // Réinitialiser le formulaire
       setModelName("")

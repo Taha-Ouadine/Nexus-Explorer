@@ -63,9 +63,26 @@ export async function POST(request: Request) {
 
     console.log("✅ Model created:", name)
 
+    // Create mock metrics for display
+    const mockMetrics = {
+      confusion_matrix: [
+        [Math.floor(Math.random() * 100), Math.floor(Math.random() * 50), Math.floor(Math.random() * 30)],
+        [Math.floor(Math.random() * 50), Math.floor(Math.random() * 100), Math.floor(Math.random() * 40)],
+        [Math.floor(Math.random() * 30), Math.floor(Math.random() * 40), Math.floor(Math.random() * 100)]
+      ],
+      classification_report: {
+        "False Positive": { precision: modelInfo.precision, recall: modelInfo.recall, f1_score: modelInfo.f1_score },
+        "Candidate": { precision: modelInfo.precision, recall: modelInfo.recall, f1_score: modelInfo.f1_score },
+        "Exoplanet": { precision: modelInfo.precision, recall: modelInfo.recall, f1_score: modelInfo.f1_score }
+      },
+      training_samples: Math.floor(Math.random() * 1000) + 500,
+      testing_samples: Math.floor(Math.random() * 200) + 100
+    }
+
     return NextResponse.json({
       success: true,
       model: modelInfo,
+      metrics: mockMetrics,
       message: `Model ${name} created successfully`
     })
 
