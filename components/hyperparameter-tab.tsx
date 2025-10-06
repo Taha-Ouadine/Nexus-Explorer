@@ -349,7 +349,6 @@ export default function HyperparameterTab({
     if (result.success) {
       onModelCreated(result.model)
       setCurrentMetrics(result.metrics)
-      await onReload()
       alert(`✅ Model created! Accuracy: ${result.model.accuracy.toFixed(4)}`)
 
       // Réinitialiser le formulaire
@@ -405,7 +404,7 @@ export default function HyperparameterTab({
       if (currentMetrics && customModels.find((m) => m.name === modelName)) {
         setCurrentMetrics(null) // clear metrics if it was this model
       }
-      onReload() // reload models from backend
+      onDeleteModel(modelName) // remove from state
     } else {
       throw new Error(result.detail || "Erreur lors de la suppression")
     }
