@@ -2,14 +2,13 @@
   "version": 2,
   "builds": [
     {
-      "src": "frontEnd/package.json",
+      "src": "package.json",
       "use": "@vercel/next"
     }
   ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "frontEnd/$1"
+  "functions": {
+    "api/**/*.py": {
+      "runtime": "python3.9"
     }
-  ]
+  }
 }
