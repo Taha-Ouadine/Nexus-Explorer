@@ -26,7 +26,10 @@ export async function GET() {
     const pklFiles = files.filter((file) => file.endsWith(".pkl"))
     const modelNames = pklFiles.map(file => file.replace('.pkl', ''))
     
-    console.log("✅ Modèles PKL:", modelNames)
+    console.log("✅ PKL models found:", modelNames)
+    
+    // Note: Session models are handled client-side and don't need to be included here
+    // They are managed by the SessionModelManager in the browser
 
     return NextResponse.json({
       success: true,

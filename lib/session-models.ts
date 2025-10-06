@@ -1,4 +1,6 @@
 // Session-based model storage for browser-side model management
+import fs from 'fs'
+import path from 'path'
 
 export interface SessionModel {
   name: string
@@ -79,6 +81,39 @@ export class SessionModelManager {
     const jsonString = JSON.stringify(mockData)
     const encoder = new TextEncoder()
     return encoder.encode(jsonString).buffer
+  }
+
+  // Create actual .pkl file in the models folder (for local development)
+  static createPklFileInModelsFolder(modelName: string, hyperparams: Record<string, any>): void {
+    if (typeof window !== 'undefined') {
+      // This is browser-side, we can't write to the file system
+      // The .pkl data will be stored in session storage instead
+      return
+    }
+
+    try {
+      // This would run on the server side (not applicable for our use case)
+      const modelsDir = path.join(process.cwd(), "api", "models")
+      const pklPath = path.join(modelsDir, `${modelName}.pkl`)
+      
+      const mockData = {
+        model_name: modelName,
+        model_type: 'sklearn_model',
+        hyperparameters: hyperparams,
+        created_at: new Date().toISOString(),
+        version: '1.0.0',
+        coefficients: Array.from({length: 20}, () => Math.random()),
+        intercept: Math.random(),
+        feature_names: Array.from({length: 20}, (_, i) => `feature_${i}`)
+      }
+      
+      // In a real implementation, you would use joblib.dump() here
+      // For now, we'll store as JSON (mock .pkl)
+      fs.writeFileSync(pklPath, JSON.stringify(mockData, null, 2))
+      console.log("✅ Created .pkl file:", pklPath)
+    } catch (error) {
+      console.warn("⚠️ Could not create .pkl file in models folder:", error)
+    }
   }
 
   // Get model .pkl data for download
