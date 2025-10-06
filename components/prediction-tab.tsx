@@ -10,7 +10,6 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Upload } from "lucide-react"
 import { FEATURE_GROUPS, CLASS_MAPPING } from "@/lib/constants"
 import ConfusionMatrixDisplay from "@/components/confusion-matrix-display"
-import { SessionModelManager } from "@/lib/session-models"
 
 interface PredictionTabProps {
   models: any[]
@@ -34,25 +33,11 @@ export default function PredictionTab({
   const [loading, setLoading] = useState(false)
   const [selectedModelMetrics, setSelectedModelMetrics] = useState<any>(null)
 
-  // Load session models
-  const [sessionModels, setSessionModels] = useState<any[]>([])
-  
-  useEffect(() => {
-    const loadSessionModels = () => {
-      const models = SessionModelManager.getSessionModels()
-      setSessionModels(models)
-      console.log("📱 Session models loaded:", models)
-    }
-    loadSessionModels()
-  }, [customModels]) // Reload when customModels change
-
-  const allModels = [...pklModels, ...customModels, ...sessionModels]
+  const allModels = [...pklModels]
   
   // Debug: Log all models
   console.log("🔍 All models for prediction:", allModels)
   console.log("📋 PKL models:", pklModels)
-  console.log("🎯 Custom models:", customModels)
-  console.log("📱 Session models:", sessionModels)
 
   // ========== INITIALIZATION OF FEATURES WITH DEFAULT VALUES ==========
   useEffect(() => {

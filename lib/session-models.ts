@@ -60,6 +60,17 @@ export class SessionModelManager {
     }
   }
 
+  // Clear all session models
+  static clearAllSessionModels(): void {
+    if (typeof window === 'undefined') return
+    try {
+      localStorage.removeItem(SESSION_MODELS_KEY)
+      console.log('🧹 All session models cleared')
+    } catch (error) {
+      console.error('Error clearing session models:', error)
+    }
+  }
+
   // Generate a mock .pkl file for a model
   static generateMockPklFile(modelName: string, hyperparams: Record<string, any>): ArrayBuffer {
     // Create a mock .pkl file structure
