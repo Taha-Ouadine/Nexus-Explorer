@@ -28,27 +28,38 @@ export async function POST(request: Request) {
       model_file: `${name}.pkl`
     }
 
-    // Sauvegarder les métriques
+    // Save metrics
     const metricsDir = path.join(process.cwd(), "api", "metrics")
     const metricsFile = path.join(metricsDir, "custom_models_metrics.json")
     
-    // Créer le dossier si nécessaire
+    console.log("📁 Metrics directory:", metricsDir)
+    console.log("📄 Metrics file:", metricsFile)
+    
+    // Create directory if necessary
     if (!fs.existsSync(metricsDir)) {
+      console.log("📁 Creating metrics directory...")
       fs.mkdirSync(metricsDir, { recursive: true })
     }
 
-    // Lire les métriques existantes
+    // Read existing metrics
     let allMetrics = []
     if (fs.existsSync(metricsFile)) {
+      console.log("📖 Reading existing metrics...")
       const content = fs.readFileSync(metricsFile, "utf-8")
       allMetrics = JSON.parse(content)
+      console.log("📊 Found", allMetrics.length, "existing models")
+    } else {
+      console.log("📄 No existing metrics file, starting fresh")
     }
 
-    // Ajouter le nouveau modèle
+    // Add the new model
     allMetrics.push(modelInfo)
+    console.log("➕ Added new model, total models:", allMetrics.length)
 
-    // Sauvegarder
+    // Save
+    console.log("💾 Saving metrics to file...")
     fs.writeFileSync(metricsFile, JSON.stringify(allMetrics, null, 2))
+    console.log("✅ Metrics saved successfully")
 
     console.log("✅ Model created:", name)
 
@@ -60,8 +71,17 @@ export async function POST(request: Request) {
 
   } catch (error) {
     console.error("❌ Error creating model:", error)
+    console.error("❌ Error details:", {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : 'No stack trace',
+      name: error instanceof Error ? error.name : 'Unknown error type'
+    })
     return NextResponse.json(
-      { success: false, error: "Error creating the model" },
+      { 
+        success: false, 
+        error: error instanceof Error ? error.message : "Error creating the model",
+        details: error instanceof Error ? error.stack : 'Unknown error'
+      },
       { status: 500 }
     )
   }
