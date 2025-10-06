@@ -351,9 +351,6 @@ export default function HyperparameterTab({
       setCurrentMetrics(result.metrics)
       await onReload()
       alert(`✅ Model created! Accuracy: ${result.model.accuracy.toFixed(4)}`)
-      
-      // Force a page reload to update the prediction tab models
-      window.location.reload()
 
       // Réinitialiser le formulaire
       setModelName("")
@@ -378,7 +375,7 @@ export default function HyperparameterTab({
   const handleDownloadModel = async (modelName: string) => {
     try {
       // Pour le téléchargement, on crée une URL directe vers le fichier
-      const downloadUrl = `http://localhost:8000/api/models/${modelName}/download`
+      const downloadUrl = `/api/models/${modelName}/download`
 
       // Créer un lien de téléchargement
       const link = document.createElement("a")
@@ -397,7 +394,10 @@ export default function HyperparameterTab({
 
   const handleDeleteModel = async (modelName: string) => {
   try {
-    const result = await modelAPI.deleteModel(modelName) // DELETE request to backend
+    const response = await fetch(`/api/delete-model?name=${encodeURIComponent(modelName)}`, {
+      method: "DELETE"
+    })
+    const result = await response.json()
     
     // ✅ Vérifier le succès selon le nouveau format
     if (result.success) {

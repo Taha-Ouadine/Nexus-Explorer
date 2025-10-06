@@ -34,6 +34,11 @@ export default function PredictionTab({
   const [selectedModelMetrics, setSelectedModelMetrics] = useState<any>(null)
 
   const allModels = [...pklModels, ...customModels]
+  
+  // Debug: Log all models
+  console.log("🔍 All models for prediction:", allModels)
+  console.log("📋 PKL models:", pklModels)
+  console.log("🎯 Custom models:", customModels)
 
   // ========== INITIALIZATION OF FEATURES WITH DEFAULT VALUES ==========
   useEffect(() => {
