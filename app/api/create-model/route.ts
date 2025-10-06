@@ -6,7 +6,7 @@ export async function POST(request: Request) {
   try {
     const { name, type, hyperparams } = await request.json()
     
-    console.log("🔄 Création modèle:", { name, type, hyperparams })
+    console.log("🔄 Creating model:", { name, type, hyperparams })
 
     if (!name || !type) {
       return NextResponse.json(
@@ -50,18 +50,18 @@ export async function POST(request: Request) {
     // Sauvegarder
     fs.writeFileSync(metricsFile, JSON.stringify(allMetrics, null, 2))
 
-    console.log("✅ Modèle créé:", name)
+    console.log("✅ Model created:", name)
 
     return NextResponse.json({
       success: true,
       model: modelInfo,
-      message: `Modèle ${name} créé avec succès`
+      message: `Model ${name} created successfully`
     })
 
   } catch (error) {
-    console.error("❌ Erreur création modèle:", error)
+    console.error("❌ Error creating model:", error)
     return NextResponse.json(
-      { success: false, error: "Erreur lors de la création du modèle" },
+      { success: false, error: "Error creating the model" },
       { status: 500 }
     )
   }
@@ -69,7 +69,7 @@ export async function POST(request: Request) {
 
 export async function GET() {
   try {
-    // Lire les modèles personnalisés existants
+    // Read existing custom models
     const metricsFile = path.join(process.cwd(), "api", "metrics", "custom_models_metrics.json")
     
     if (fs.existsSync(metricsFile)) {
@@ -88,9 +88,9 @@ export async function GET() {
     })
 
   } catch (error) {
-    console.error("❌ Erreur lecture modèles:", error)
+    console.error("❌ Error reading models:", error)
     return NextResponse.json(
-      { success: false, error: "Erreur lecture modèles", models: [] },
+      { success: false, error: "Error reading models", models: [] },
       { status: 500 }
     )
   }
