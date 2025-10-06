@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, Globe, Star, Calendar, Sun, Maximize2, Minimize2 } from "lucide-react"
 import Link from "next/link"
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState, useRef, Suspense } from "react"
 import { loadKeplerData, planetHost, type KeplerPlanet } from "@/lib/kepler-data"
 import SolarSystem from "@/components/solar-system/solar-system"
 import { CelestialData, keplerToCelestialData, DefaultData } from "@/components/solar-system/universe-data";
@@ -16,7 +16,7 @@ import { CelestialData, keplerToCelestialData, DefaultData } from "@/components/
 
 
 
-export default function VisualizationPage() {
+function VisualizationContent() {
   const searchParams = useSearchParams()
   console.log(searchParams)
   const planetName = searchParams.get("planet")
@@ -403,5 +403,20 @@ export default function VisualizationPage() {
         )}
       </div>
     </div>
+  )
+}
+
+export default function VisualizationPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-400 mx-auto"></div>
+          <p className="mt-4 text-foreground/70">Loading visualization...</p>
+        </div>
+      </div>
+    }>
+      <VisualizationContent />
+    </Suspense>
   )
 }
