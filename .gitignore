@@ -320,10 +320,10 @@ dmypy.json
 
 # Machine Learning models (if they're large)
 # *.pkl  # Commented out to include trained models
-*.joblib
-*.h5
-*.hdf5
-*.model
+# *.joblib  # Commented out to include all models for Vercel deployment
+# *.h5  # Commented out to include all models for Vercel deployment
+# *.hdf5  # Commented out to include all models for Vercel deployment
+# *.model  # Commented out to include all models for Vercel deployment
 
 # Data files (uncomment if you don't want to track data)
 # *.csv
