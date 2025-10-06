@@ -2,14 +2,14 @@
 
 "use client"
 
-import { useState } from "react"
+import { useState, Suspense } from "react"
 import Link from "next/link"
 import { usePathname, useSearchParams, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Home, Telescope, Gamepad2, Menu, X, PersonStandingIcon, Bot } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-export function RegularUserSidebar() {
+function RegularUserSidebarContent() {
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -117,5 +117,20 @@ export function RegularUserSidebar() {
       {/* Overlay for mobile */}
       {isOpen && <div className="fixed inset-0 bg-black/50 z-30 lg:hidden" onClick={() => setIsOpen(false)} />}
     </>
+  )
+}
+
+export function RegularUserSidebar() {
+  return (
+    <Suspense fallback={
+      <div className="w-64 h-screen bg-card/50 border-r border-border/50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-pink-400 mx-auto"></div>
+          <p className="mt-2 text-sm text-foreground/70">Loading...</p>
+        </div>
+      </div>
+    }>
+      <RegularUserSidebarContent />
+    </Suspense>
   )
 }
