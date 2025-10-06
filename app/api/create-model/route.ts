@@ -15,7 +15,7 @@ export async function POST(request: Request) {
       )
     }
 
-    // Simuler la création du modèle
+    // Simulate model creation (note: actual .pkl file creation not possible on Vercel)
     const modelInfo = {
       name,
       type: "custom",
@@ -25,7 +25,8 @@ export async function POST(request: Request) {
       f1_score: Math.random() * 0.3 + 0.7,
       creation_time: new Date().toISOString(),
       hyperparameters: hyperparams || {},
-      model_file: `${name}.pkl`
+      model_file: `${name}.pkl`,
+      note: "Model created in memory (no physical .pkl file on Vercel)"
     }
 
     // Save metrics

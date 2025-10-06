@@ -373,10 +373,17 @@ export default function HyperparameterTab({
 
   const handleDownloadModel = async (modelName: string) => {
     try {
-      // Pour le téléchargement, on crée une URL directe vers le fichier
+      // Check if this is a custom model (which won't have a physical .pkl file on Vercel)
+      const customModel = customModels.find(m => m.name === modelName)
+      if (customModel) {
+        alert(`ℹ️ Custom model "${modelName}" was created in memory and doesn't have a downloadable .pkl file on Vercel. The model can still be used for predictions.`)
+        return
+      }
+
+      // For pre-existing models, try to download
       const downloadUrl = `/api/models/${modelName}/download`
 
-      // Créer un lien de téléchargement
+      // Create download link
       const link = document.createElement("a")
       link.href = downloadUrl
       link.download = `${modelName}.pkl`
@@ -384,10 +391,10 @@ export default function HyperparameterTab({
       link.click()
       document.body.removeChild(link)
 
-      alert(`📥 Téléchargement du modèle ${modelName} commencé`)
+      alert(`📥 Download of model ${modelName} started`)
     } catch (error: any) {
-      console.error("Erreur de téléchargement:", error)
-      alert(`❌ Erreur lors du téléchargement: ${error.message}`)
+      console.error("Download error:", error)
+      alert(`❌ Download error: ${error.message}`)
     }
   }
 
