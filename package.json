@@ -1,0 +1,15 @@
+{
+  "name": "nexus-explorers",
+  "version": "1.0.0",
+  "description": "Exoplanet Discovery Platform - Machine Learning models for exoplanet classification",
+  "private": true,
+  "scripts": {
+    "dev": "cd frontEnd && npm run dev",
+    "build": "cd frontEnd && npm run build",
+    "start": "cd frontEnd && npm run start",
+    "install": "cd frontEnd && npm install"
+  },
+  "workspaces": [
+    "frontEnd"
+  ]
+}
