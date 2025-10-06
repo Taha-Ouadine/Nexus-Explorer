@@ -166,6 +166,8 @@ const loadModelsData = async () => {
                     setLastPrediction(prediction)
                     setFeedbackGiven(false)
                     setActiveTab("results") // Auto-redirect to results tab
+                    // Scroll to top of the page
+                    window.scrollTo({ top: 0, behavior: 'smooth' })
                   }}
                 />
               </TabsContent>

@@ -4,9 +4,9 @@ import { GeistMono } from 'geist/font/mono'
 import { Analytics } from '@vercel/analytics/next'
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
-  generator: 'v0.app',
+  title: 'Nexus Explorers - Advanced User',
+  description: 'Advanced exoplanet analysis and prediction platform',
+  generator: 'Nexus Explorers',
 }
 
 export default function RootLayout({

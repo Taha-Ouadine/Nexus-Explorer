@@ -56,10 +56,15 @@ export async function POST(request: Request) {
     allMetrics.push(modelInfo)
     console.log("➕ Added new model, total models:", allMetrics.length)
 
-    // Save
-    console.log("💾 Saving metrics to file...")
-    fs.writeFileSync(metricsFile, JSON.stringify(allMetrics, null, 2))
-    console.log("✅ Metrics saved successfully")
+    // Save (handle read-only file system gracefully)
+    try {
+      console.log("💾 Saving metrics to file...")
+      fs.writeFileSync(metricsFile, JSON.stringify(allMetrics, null, 2))
+      console.log("✅ Metrics saved successfully")
+    } catch (writeError) {
+      console.warn("⚠️ Could not save to file system (read-only), but model creation succeeded")
+      // Continue anyway - the model is still created in memory
+    }
 
     console.log("✅ Model created:", name)
 
