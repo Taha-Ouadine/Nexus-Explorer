@@ -4,7 +4,7 @@ import path from "path"
 
 export async function GET() {
   try {
-    const modelsDir = path.join(process.cwd(), "..", "backEnd", "models")
+    const modelsDir = path.join(process.cwd(), "api", "models")
     console.log("📁 Recherche dans:", modelsDir)
 
     // Check if directory exists
@@ -81,7 +81,7 @@ export async function POST(request: Request) {
     }
 
     // Vérifier que le modèle existe
-    const modelsDir = path.join(process.cwd(), "..", "backEnd", "models")
+    const modelsDir = path.join(process.cwd(), "api", "models")
     const modelPath = path.join(modelsDir, `${model_name}.pkl`)
 
     if (!fs.existsSync(modelPath)) {

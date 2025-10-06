@@ -4,7 +4,7 @@ import path from "path"
 
 export async function GET() {
   try {
-    const metricsFile = path.join(process.cwd(), "..", "backEnd", "metrics", "custom_models_metrics.json")
+    const metricsFile = path.join(process.cwd(), "api", "metrics", "custom_models_metrics.json")
     
     console.log("📁 Recherche métriques:", metricsFile)
 

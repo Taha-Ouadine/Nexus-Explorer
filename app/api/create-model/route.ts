@@ -29,7 +29,7 @@ export async function POST(request: Request) {
     }
 
     // Sauvegarder les métriques
-    const metricsDir = path.join(process.cwd(), "..", "backEnd", "metrics")
+    const metricsDir = path.join(process.cwd(), "api", "metrics")
     const metricsFile = path.join(metricsDir, "custom_models_metrics.json")
     
     // Créer le dossier si nécessaire
@@ -70,7 +70,7 @@ export async function POST(request: Request) {
 export async function GET() {
   try {
     // Lire les modèles personnalisés existants
-    const metricsFile = path.join(process.cwd(), "..", "backEnd", "metrics", "custom_models_metrics.json")
+    const metricsFile = path.join(process.cwd(), "api", "metrics", "custom_models_metrics.json")
     
     if (fs.existsSync(metricsFile)) {
       const content = fs.readFileSync(metricsFile, "utf-8")

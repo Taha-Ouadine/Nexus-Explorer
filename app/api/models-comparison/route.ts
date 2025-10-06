@@ -4,7 +4,7 @@ import path from "path"
 
 export async function GET() {
   try {
-    const csvFile = path.join(process.cwd(), "..", "backEnd", "data", "models_comparison.csv")
+    const csvFile = path.join(process.cwd(), "api", "data", "models_comparison.csv")
     console.log("📊 Recherche du fichier CSV:", csvFile)
 
     // Vérifier si le fichier existe

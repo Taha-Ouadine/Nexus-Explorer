@@ -4,8 +4,8 @@ import path from "path"
 
 export async function GET() {
   try {
-    const metricsFile = path.join(process.cwd(), "..", "backEnd", "metrics", "custom_models_metrics.json")
-    const modelsDir = path.join(process.cwd(), "..", "backEnd", "models")
+    const metricsFile = path.join(process.cwd(), "api", "metrics", "custom_models_metrics.json")
+    const modelsDir = path.join(process.cwd(), "api", "models")
     
     console.log("📊 Recherche métriques dans:", metricsFile)
     console.log("📁 Dossier modèles:", modelsDir)
@@ -106,7 +106,7 @@ export async function POST(request: Request) {
     }
 
     // ✅ VÉRIFIER QUE LE MODÈLE EXISTE PHYSIQUEMENT
-    const modelsDir = path.join(process.cwd(), "..", "backEnd", "models")
+    const modelsDir = path.join(process.cwd(), "api", "models")
     const modelPath = path.join(modelsDir, `${model_name}.pkl`)
     
     if (!fs.existsSync(modelPath)) {
