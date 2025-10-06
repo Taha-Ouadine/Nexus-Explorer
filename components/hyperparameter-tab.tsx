@@ -333,7 +333,7 @@ export default function HyperparameterTab({
 
   const handleCreateModel = async () => {
   if (!modelName.trim()) {
-    alert("Veuillez donner un nom à votre modèle")
+    alert("Please give a name to your model")
     return
   }
 
@@ -350,7 +350,7 @@ export default function HyperparameterTab({
       onModelCreated(result.model)
       setCurrentMetrics(result.metrics)
       await onReload()
-      alert(`✅ Modèle créé! Accuracy: ${result.model.accuracy.toFixed(4)}`)
+      alert(`✅ Model created! Accuracy: ${result.model.accuracy.toFixed(4)}`)
 
       // Réinitialiser le formulaire
       setModelName("")
@@ -362,11 +362,11 @@ export default function HyperparameterTab({
         max_features: "sqrt",
       })
     } else {
-      throw new Error(result.error || "Erreur lors de la création du modèle")
+      throw new Error(result.error || "Error creating the model")
     }
   } catch (error: any) {
     console.error("Erreur:", error)
-    alert(`❌ ${error.message || "Erreur lors de la création du modèle"}`)
+    alert(`❌ ${error.message || "Error creating the model"}`)
   } finally {
     setLoading(false)
   }
@@ -398,7 +398,7 @@ export default function HyperparameterTab({
     
     // ✅ Vérifier le succès selon le nouveau format
     if (result.success) {
-      alert(`✅ Modèle ${modelName} supprimé avec succès`)
+      alert(`✅ Model ${modelName} deleted successfully`)
       if (currentMetrics && customModels.find((m) => m.name === modelName)) {
         setCurrentMetrics(null) // clear metrics if it was this model
       }
