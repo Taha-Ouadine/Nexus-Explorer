@@ -3,11 +3,14 @@
 import { useState, useEffect } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
 import PredictionTab from "@/components/prediction-tab"
 import ResultsTab from "@/components/results-tab"
 import ModelsTab from "@/components/models-tab"
 import HyperparameterTab from "@/components/hyperparameter-tab"
-import { modelAPI } from "@/services/api"; 
+import { modelAPI } from "@/services/api"
+import Link from "next/link"
+import { Home, ArrowLeft } from "lucide-react" 
 
 export default function ExoplanetPrediction() {
   const [lastPrediction, setLastPrediction] = useState<any>(null)
@@ -103,10 +106,24 @@ const loadModelsData = async () => {
           <div className="max-w-7xl mx-auto">
             {/* Header */}
             <Card className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-8 rounded-2xl shadow-2xl mb-8">
-              <h1 className="text-4xl font-bold text-center mb-2">🚀 NASA Exoplanet Prediction</h1>
-              <p className="text-center text-lg opacity-90">
-                Plateforme avancée d'analyse et de prédiction d'exoplanètes
-              </p>
+              <div className="flex items-center justify-between mb-4">
+                <Link href="/">
+                  <Button 
+                    variant="outline" 
+                    className="bg-white/10 border-white/20 text-white hover:bg-white/20 hover:text-white"
+                  >
+                    <ArrowLeft className="h-4 w-4 mr-2" />
+                    Back to Home
+                  </Button>
+                </Link>
+                <div className="flex-1 text-center">
+                  <h1 className="text-4xl font-bold mb-2">🚀 NASA Exoplanet Prediction</h1>
+                  <p className="text-lg opacity-90">
+                    Advanced exoplanet analysis and prediction platform
+                  </p>
+                </div>
+                <div className="w-32"></div> {/* Spacer for centering */}
+              </div>
             </Card>
 
             {/* Tabs */}
@@ -116,19 +133,19 @@ const loadModelsData = async () => {
                   value="prediction"
                   className="data-[state=active]:bg-purple-600 data-[state=active]:text-white text-slate-200"
                 >
-                  🎯 Prédiction
+                  🎯 Prediction
                 </TabsTrigger>
                 <TabsTrigger
                   value="results"
                   className="data-[state=active]:bg-purple-600 data-[state=active]:text-white text-slate-200"
                 >
-                  📊 Résultat & Feedback
+                  📊 Results & Feedback
                 </TabsTrigger>
                 <TabsTrigger
                   value="models"
                   className="data-[state=active]:bg-purple-600 data-[state=active]:text-white text-slate-200"
                 >
-                  📈 Modèles & Métriques
+                  📈 Models & Metrics
                 </TabsTrigger>
                 <TabsTrigger
                   value="hyperparameter"
