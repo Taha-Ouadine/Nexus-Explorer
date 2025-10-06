@@ -18,6 +18,7 @@ export default function ExoplanetPrediction() {
   const [models, setModels] = useState<any[]>([])
   const [customModels, setCustomModels] = useState<any[]>([])
   const [modelsComparison, setModelsComparison] = useState<any[]>([])
+  const [activeTab, setActiveTab] = useState("prediction")
 
   useEffect(() => {
     loadModelsData()
@@ -127,7 +128,7 @@ const loadModelsData = async () => {
             </Card>
 
             {/* Tabs */}
-            <Tabs defaultValue="prediction" className="w-full">
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <TabsList className="grid w-full grid-cols-4 mb-8 bg-slate-800/50 p-2 rounded-lg">
                 <TabsTrigger
                   value="prediction"
@@ -164,6 +165,7 @@ const loadModelsData = async () => {
                   onPredictionComplete={(prediction) => {
                     setLastPrediction(prediction)
                     setFeedbackGiven(false)
+                    setActiveTab("results") // Auto-redirect to results tab
                   }}
                 />
               </TabsContent>
