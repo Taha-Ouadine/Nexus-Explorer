@@ -142,8 +142,8 @@ useEffect(() => {
     console.log("📋 Selected model:", selectedModel)
     console.log("🔢 Sent features:", featuresArray)
 
-    // ✅ ENVOYER DIRECTEMENT À FASTAPI (port 8000)
-    const response = await fetch("http://localhost:8000/api/predict", {
+    // ✅ Use Next.js API route instead of FastAPI
+    const response = await fetch("/api/models", {
       method: "POST",
       headers: { 
         "Content-Type": "application/json",
@@ -490,8 +490,8 @@ const [batchResults, setBatchResults] = useState<any[]>([])
           >
             {loading ? "Prediction in progress..." : "🚀 Run Prediction"}
           </Button>
-          // Add this section after the batch prediction button
-{batchResults.length > 0 && (
+          
+          {batchResults.length > 0 && (
   <Card className="bg-slate-800/50 border-slate-700 mt-6">
     <CardHeader>
       <CardTitle className="text-white">📋 Batch Prediction Results</CardTitle>
